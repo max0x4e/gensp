@@ -1,5 +1,5 @@
 app-name=gensp
-app-path=/app-gensp
+app-path=CHANGE-ME
 App-name=GenSP
 app-initial-version=0.0.0.1
 app-synopsis=gensp <template directory> <output directory> [<answers file containing records in the form of key=value>]
