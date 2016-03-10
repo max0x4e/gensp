@@ -16,3 +16,4 @@ The 'answers-file' format is the following:
 etc.
 </pre>
 
+The source tree contains two example templates - one for Haskell's Cabal and another one for C/C++ CMake projects.
