@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2016 Maxim Belov
+-- Copyright (c) 2016 Max Belov
 --
 import System.Environment
 import System.Exit 
