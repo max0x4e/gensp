@@ -1,0 +1,15 @@
+app-name=gensp
+app-path=/app-gensp
+App-name=GenSP
+app-initial-version=0.0.0.1
+app-synopsis=gensp <template directory> <output directory> [<answers file containing records in the form of key=value>]
+app-description=CHANGE-ME
+app-homepage-url=CHANGE-ME
+app-license=CHANGE-ME
+app-author=CHANGE-ME
+app-authors-e-mail=CHANGE-ME
+app-category=CHANGE-ME
+cabal-minimal-version=1.8
+haskell-base-version=4.6.*
+ghc-options=-fllvm
+ghc-shared-options=-fllvm

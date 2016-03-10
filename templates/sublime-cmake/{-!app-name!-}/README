@@ -1,0 +1,4 @@
+gensp ~/dev/workspace/gensp/templates/sublime-cmake . ./answers.txt
+cd gluon/build
+cmake -DBUILD_LIBRARY=ON -DBUILD_SHARED_LIBS=OFF ../
+

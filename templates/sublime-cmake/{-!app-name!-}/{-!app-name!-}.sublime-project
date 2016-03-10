@@ -1,0 +1,42 @@
+{
+	"folders":
+	[
+		{
+			"path": "{-!app-path!-}",
+			"folder_exclude_patterns": [".git", ".gluon.sublime-project.swp", ".tags", ".tags_sorted_by_file"],
+			"name": "{-!App-name!-}"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "make",
+			"cmd": ["make"],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"selector": "source.c, source.c++, source.cpp",
+			"working_dir": "${project_path}/build",
+			"variants":
+			[
+				{
+					"name": "run",
+					"cmd": ["nohup","./{-!app-executable-name!-}"]
+				},
+				{
+					"name": "cmake (debug)",
+					"cmd": ["cmake", "-DBUILD_SHARED_LIBS={-!app-build-shared-libs!-}", "-DBUILD_STATIC_LIBRARY={-!app-build-static-lib!-}", "-DCMAKE_BUILD_TYPE=Debug", "../"]
+				},
+				{
+					"name": "cmake (release)",
+					"cmd": ["cmake", "-DBUILD_SHARED_LIBS={-!app-build-shared-libs!-}", "-DBUILD_STATIC_LIBRARY={-!app-build-static-lib!-}", "-DCMAKE_BUILD_TYPE=Release", "../"]
+				}
+			]
+		}
+	],
+    "settings":
+    {
+    	  // F5 - start debugger/continue, F9 - toggle breakpoint, F10 - step over, F11 - step in
+          "sublimegdb_workingdir": "{-!app-path!-}/build",
+          "sublimegdb_arguments": "",
+          "sublimegdb_commandline": "{-!gdb-path!-} --interpreter=mi --args ./{-!app-executable-name!-}"
+    }
+}

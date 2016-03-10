@@ -1,0 +1,21 @@
+name:                {-!App-name!-}
+version:             {-!app-initial-version!-}
+synopsis:            {-!app-synopsis!-}
+description:         {-!app-description!-}
+-- description:
+homepage:            {-!app-homepage-url!-}
+license:             {-!app-license!-}
+license-file:        LICENSE
+author:              {-!app-author!-}
+maintainer:          {-!app-authors-e-mail!-}
+-- copyright:
+category:            {-!app-category!-}
+build-type:          Simple
+cabal-version:       >={-!cabal-minimal-version!-}
+
+executable {-!app-name!-}
+  main-is: {-!App-name!-}.hs
+  -- other-modules:
+  build-depends:       base -any
+  ghc-options: {-!ghc-options!-}
+  ghc-shared-options: {-!ghc-shared-options!-}

@@ -1,0 +1,34 @@
+{
+	"folders":
+	[
+		{
+			"path": "{-!app-path!-}",
+			"folder_exclude_patterns": [".git", ".hdevtools.sock"],
+			"name": "{-!App-name!-}"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Cabal Build",
+			"cmd": ["cabal", "install", "--prefix=${project_path}", "--user", "--enable-optimization=2"],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"selector": "source.haskell",
+			"working_dir": "${project_path:${folder:${file_path}}}",
+			"variants":
+			[
+				{
+					"name": "Cabal Init",
+					"cmd": ["cabal", "init"]
+				},
+				{
+					"name": "Cabal Run",
+					"cmd": ["${project_path}/bin/{-!App-name!-}"]
+				}				
+			]
+		}
+	],
+    "settings":
+    {
+    }
+}
