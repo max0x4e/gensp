@@ -22,6 +22,7 @@ getKeyValueFromUser answers key = unsafePerformIO $ do
     return value
 
 convertList :: [String] -> (String, String)
+convertList [] = ("","")
 convertList [x] = (x, "")
 convertList [x,y] = (x, y)
 convertList (x:xs) = (x, intercalate "=" xs)
@@ -31,7 +32,7 @@ readAnswers::FilePath -> Map String String
 readAnswers answersFile = unsafePerformIO $ handle (\(SomeException _) -> putStrLn "Error reading answers file" >> return empty) $
     do
         inputStream <- readFile answersFile
-        return (fromList $ map (convertList . splitOn ("=")) (splitOn ("\n") inputStream))
+        return (fromList $ map (convertList . splitOn "=") (splitOn "\n" inputStream))
 
 undecorateKey::String -> String
 undecorateKey decoratedKey = replace "!-}" "" $ replace "{-!" "" decoratedKey
@@ -39,7 +40,7 @@ undecorateKey decoratedKey = replace "!-}" "" $ replace "{-!" "" decoratedKey
 -- Replace patterns in the file and directory names
 resolvePatterns::String -> String -> String
 resolvePatterns key answers = do
-    let matches = getAllTextMatches $ key =~ "{-![a-zA-Z0-9-]*!-}" :: [String]
+    let matches = getAllTextMatches $ key =~ "{-![a-zA-Z0-9-_]*!-}" :: [String]
     case length matches of 
         0 -> key
         _ -> foldl (\x y -> replace y (findWithDefault (getKeyValueFromUser answers $ undecorateKey y) (undecorateKey y) (readAnswers answers)) x) key matches
@@ -76,9 +77,9 @@ generateProjectDirectory inp outp answers = do
 -- Generate Sublime Project
 gensp::[FilePath] -> IO ()
 gensp args
-    | length args == 2 = gensp [args !! 0, args !! 1, "./answers.txt"]
+    | length args == 2 = gensp [head args, args !! 1, "./answers.txt"]
     | length args == 3 = do 
-        paths <- generateProjectDirectory (args !! 0) (args !! 1) (args !! 2)
+        paths <- generateProjectDirectory (head args) (args !! 1) (args !! 2)
         putStrLn $ "Done: \n\t" ++ (paths >>= \x -> x ++ "\n\t")
     | otherwise = putStrLn "Usage: gensp <template directory> <output directory> [<answers file containing records in the form of {key}={value}\\n pairs>]" >> exitFailure
 
